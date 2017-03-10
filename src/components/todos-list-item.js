@@ -1,8 +1,14 @@
 import _ from 'lodash';
 import React from 'react';
+import { connect } from 'react-redux';
+import { 
+	addTodo, 
+	toggleTodo, 
+	editTodo, 
+	deleteTodo 
+} from './actions';
 
-export default class TodosList extends React.Component {
-
+class TodosListItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -32,7 +38,7 @@ export default class TodosList extends React.Component {
 		event.preventDefault();
 		const oldTask = this.props.task;
 		const newTask = this.refs.editTask.value;
-		this.props.saveTask(oldTask, newTask);
+		this.props.editTodo(oldTask, newTask);
 		this.setState({ isEditing : false });
 	}
 
@@ -50,7 +56,7 @@ export default class TodosList extends React.Component {
 
 	onDeleteClick() {
 		const task = this.props.task;
-		this.props.deleteTask(task);
+		this.props.deleteTodo(task);
 	}
 
 	renderTaskSection() {
@@ -71,7 +77,7 @@ export default class TodosList extends React.Component {
 		}
 
 		return (
-				<td onClick={this.props.toggleTask.bind(this, task)} style={taskStyle}>{task}</td>
+				<td onClick={this.props.toggleTodo.bind(this, task)} style={taskStyle}>{task}</td>
 		);
 	}
 
@@ -83,4 +89,29 @@ export default class TodosList extends React.Component {
 			</tr>
 		);
 	}
-}
+};
+
+const mapStateToProps = (state) => {
+	return { 
+		todos: state
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		addTodo: task => dispatch(addTodo(task)),
+		toggleTodo: task => dispatch(toggleTodo(task)),
+		editTodo: (oldTask, newTask) => dispatch(editTodo(oldTask, newTask)),
+		deleteTodo: task => dispatch(deleteTodo(task))
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodosListItem);
+
+
+
+
+
+
+
+
