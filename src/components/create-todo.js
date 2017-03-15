@@ -3,24 +3,41 @@ import { connect } from 'react-redux';
 import { 
 	addTodo
 } from './actions';
+import { FormGroup, ControlLabel, HelpBlock, FormControl } from 'react-bootstrap';
 
 class CreateTodo extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			value: ''
+		};
+	}
+
+	handleChange(event) {
+		this.setState({ value: event.target.value });
+	}
+
 	render() {
 		return (
 			<form onSubmit={this.handleCreate.bind(this)}>
-				<input type="text" placeholder="What do I need to do?"
-					ref="createInput"/>
-				<button>Create</button>
+				<FormGroup
+					controlId="taskText"
+				>
+					<FormControl
+						type="text"
+						value={this.state.value}
+						placeholder="Enter task"
+						onChange={this.handleChange.bind(this)}
+					/>
+				</FormGroup>
 			</form>
 		);
 	}
 
 	handleCreate(event) {
 		event.preventDefault();
-		if (this.refs.createInput.value !== ''){
-			this.props.addTodo(this.refs.createInput.value);
-		}
-		this.refs.createInput.value = '';
+		this.props.addTodo(this.state.value);
+		this.setState({value: ''})
 	}
 }
 

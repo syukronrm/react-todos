@@ -7,12 +7,14 @@ import {
 	editTodo, 
 	deleteTodo 
 } from './actions';
+import { Button, ButtonToolbar, FormGroup, FormControl } from 'react-bootstrap';
 
 class TodosListItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isEditing: false
+			isEditing: false,
+			task: this.props.task
 		};
 	}
 
@@ -20,16 +22,20 @@ class TodosListItem extends React.Component {
 		if (this.state.isEditing) {
 			return (
 				<td>
-					<button onClick={this.onSaveClick.bind(this)}>Save</button>
-					<button onClick={this.onCancelClick.bind(this)}>Cancel</button>
+					<ButtonToolbar>
+						<Button bsStyle="warning" onClick={this.onSaveClick.bind(this)}>Save</Button>
+						<Button bsStyle="danger" onClick={this.onCancelClick.bind(this)}>Cancel</Button>
+					</ButtonToolbar>
 				</td>
 			);
 		}
 
 		return (
 			<td>
-				<button onClick={this.onEditClick.bind(this)}>Edit</button>
-				<button onClick={this.onDeleteClick.bind(this)}>Delete</button>
+					<ButtonToolbar>
+						<Button bsStyle="warning" onClick={this.onEditClick.bind(this)}>Edit</Button>
+						<Button bsStyle="danger" onClick={this.onDeleteClick.bind(this)}>Delete</Button>
+					</ButtonToolbar>
 			</td>
 		);
 	}
@@ -37,7 +43,7 @@ class TodosListItem extends React.Component {
 	onSaveClick(event) {
 		event.preventDefault();
 		const oldTask = this.props.task;
-		const newTask = this.refs.editTask.value;
+		const newTask = this.state.task;
 		this.props.editTodo(oldTask, newTask);
 		this.setState({ isEditing : false });
 	}
@@ -55,8 +61,11 @@ class TodosListItem extends React.Component {
 	}
 
 	onDeleteClick() {
-		const task = this.props.task;
-		this.props.deleteTodo(task);
+		this.props.deleteTodo(this.props.task);
+	}
+
+	handleChange(event) {
+		this.setState({ task: event.target.value });
 	}
 
 	renderTaskSection() {
@@ -70,7 +79,11 @@ class TodosListItem extends React.Component {
 			return (
 				<td>
 					<form onSubmit={this.onSaveClick.bind(this)}>
-						<input type="text" defaultValue={task} ref="editTask"/>
+							<FormControl
+								type="text"
+								value={this.state.task}
+								onChange={this.handleChange.bind(this)}
+							/>
 					</form>
 				</td>
 			);

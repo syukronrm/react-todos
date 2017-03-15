@@ -16,7 +16,6 @@ export function toggleTodo(task) {
 }
 
 export function editTodo(oldTask, newTask) {
-	console.log("oldtask " +oldTask + "newTask " + newTask);
 	return {
 		type: 'EDIT_TODO',
 		payload: {

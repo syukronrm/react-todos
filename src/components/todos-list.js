@@ -3,6 +3,7 @@ import React from 'react';
 import TodosListHeader from './todos-list-header';
 import TodosListItem from './todos-list-item';
 import { connect } from 'react-redux';
+import { Table } from 'react-bootstrap';
 
 class TodosList extends React.Component {
 	constructor(props) {
@@ -16,12 +17,12 @@ class TodosList extends React.Component {
 
 	render() {
 		return (
-			<table>
+			<Table striped bordered condensed hover>
 				<TodosListHeader/>
 				<tbody>
 					{this.renderItems()}
 				</tbody>
-			</table>
+			</Table>
 		);
 	}
 }
