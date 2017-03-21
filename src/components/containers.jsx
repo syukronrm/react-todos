@@ -16,9 +16,9 @@ export const App = connect(
 	function mapDispatchToProps(dispatch) {
 		return {
 			addTodo: task => dispatch(addTodo(task)),
-			toggleTodo: task => dispatch(toggleTodo(task)),
-			editTodo: (oldTask, newTask) => dispatch(editTodo(oldTask, newTask)),
-			deleteTodo: task => dispatch(deleteTodo(task))
+			toggleTodo: id => dispatch(toggleTodo(id)),
+			editTodo: (id, newTask) => dispatch(editTodo(id, newTask)),
+			deleteTodo: id => dispatch(deleteTodo(id))
 		}
 	}
 )(components.App);

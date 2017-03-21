@@ -11,8 +11,9 @@ class TodosList extends React.Component {
 	}
 
 	renderItems() {
-		return _.map(this.props.todos, (todos, index) => 
-			<TodosListItem key={index} {...todos}/>);
+		return _.map(this.props.todos, (todos, index) => {
+			return <TodosListItem key={index} {...todos}/>;
+		})
 	}
 
 	render() {
@@ -28,9 +29,9 @@ class TodosList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	return { 
+	return {
 		todos: state
 	};
 };
 
-export default connect(mapStateToProps)( TodosList);
+export default connect(mapStateToProps)(TodosList);

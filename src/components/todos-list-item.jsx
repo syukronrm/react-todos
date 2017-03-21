@@ -42,9 +42,9 @@ class TodosListItem extends React.Component {
 
 	onSaveClick(event) {
 		event.preventDefault();
-		const oldTask = this.props.task;
+		const id = this.props.id;
 		const newTask = this.state.task;
-		this.props.editTodo(oldTask, newTask);
+		this.props.editTodo(id, newTask);
 		this.setState({ isEditing : false });
 	}
 
@@ -61,7 +61,7 @@ class TodosListItem extends React.Component {
 	}
 
 	onDeleteClick() {
-		this.props.deleteTodo(this.props.task);
+		this.props.deleteTodo(this.props.id);
 	}
 
 	handleChange(event) {
@@ -69,7 +69,7 @@ class TodosListItem extends React.Component {
 	}
 
 	renderTaskSection() {
-		const { task, isCompleted } = this.props;
+		const { id, task, isCompleted } = this.props;
 		const taskStyle = {
 			color: isCompleted? 'green' : 'black',
 			cursor: 'pointer'
@@ -90,7 +90,7 @@ class TodosListItem extends React.Component {
 		}
 
 		return (
-				<td onClick={this.props.toggleTodo.bind(this, task)} style={taskStyle}>{task}</td>
+				<td onClick={this.props.toggleTodo.bind(this, id)} style={taskStyle}>{task}</td>
 		);
 	}
 
@@ -106,16 +106,16 @@ class TodosListItem extends React.Component {
 
 const mapStateToProps = (state) => {
 	return { 
-		todos: state
+		
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addTodo: task => dispatch(addTodo(task)),
-		toggleTodo: task => dispatch(toggleTodo(task)),
-		editTodo: (oldTask, newTask) => dispatch(editTodo(oldTask, newTask)),
-		deleteTodo: task => dispatch(deleteTodo(task))
+		toggleTodo: id => dispatch(toggleTodo(id)),
+		editTodo: (id, newTask) => dispatch(editTodo(id, newTask)),
+		deleteTodo: id => dispatch(deleteTodo(id))
 	};
 };
 

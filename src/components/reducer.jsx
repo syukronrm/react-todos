@@ -11,16 +11,16 @@ export default function(todos=init, action) {
 			];
 		case 'TOGGLE_TODO':
 			return todos.map(todo => {
-				if (todo.task === action.payload) {
+				if (todo.id === action.payload) {
 					todo.isCompleted = !todo.isCompleted;
 				}
 				return todo;
 			});
 		case 'DELETE_TODO':
-			return todos.filter(todo => todo.task !== action.payload);
+			return todos.filter(todo => todo.id !== action.payload);
 		case 'EDIT_TODO':
 			return todos.map(todo => {
-				if (todo.task === action.payload.oldTask) {
+				if (todo.id === action.payload.id) {
 					todo.task = action.payload.newTask;
 				}
 				return todo;
