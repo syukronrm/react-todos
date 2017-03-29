@@ -4,7 +4,8 @@ import {
 	addTodo, 
 	toggleTodo, 
 	editTodo, 
-	deleteTodo 
+	deleteTodo,
+	fetchTodos
 } from './actions';
 
 export const App = connect(
@@ -18,7 +19,8 @@ export const App = connect(
 			addTodo: task => dispatch(addTodo(task)),
 			toggleTodo: id => dispatch(toggleTodo(id)),
 			editTodo: (id, newTask) => dispatch(editTodo(id, newTask)),
-			deleteTodo: id => dispatch(deleteTodo(id))
+			deleteTodo: id => dispatch(deleteTodo(id)),
+			fetchTodos: () => dispatch(fetchTodos())
 		}
 	}
 )(components.App);

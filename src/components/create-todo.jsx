@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { 
-	addTodo
+	insertTodo
 } from './actions';
 import { FormGroup, ControlLabel, HelpBlock, FormControl } from 'react-bootstrap';
 
@@ -36,7 +36,7 @@ class CreateTodo extends React.Component {
 
 	handleCreate(event) {
 		event.preventDefault();
-		this.props.addTodo(this.state.value);
+		this.props.insertTodo(this.state.value);
 		this.setState({value: ''})
 	}
 }
@@ -49,9 +49,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		addTodo: task => dispatch(addTodo(task))
+		insertTodo: task => dispatch(insertTodo(task))
 	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateTodo);
-

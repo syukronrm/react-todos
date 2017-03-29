@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { 
 	addTodo, 
-	toggleTodo, 
-	editTodo, 
+	updateToggleTodo, 
+	updateTodo, 
 	deleteTodo 
 } from './actions';
 import { Button, ButtonToolbar, FormGroup, FormControl } from 'react-bootstrap';
@@ -44,7 +44,7 @@ class TodosListItem extends React.Component {
 		event.preventDefault();
 		const id = this.props.id;
 		const newTask = this.state.task;
-		this.props.editTodo(id, newTask);
+		this.props.updateTodo(id, newTask);
 		this.setState({ isEditing : false });
 	}
 
@@ -90,7 +90,7 @@ class TodosListItem extends React.Component {
 		}
 
 		return (
-				<td onClick={this.props.toggleTodo.bind(this, id)} style={taskStyle}>{task}</td>
+				<td onClick={this.props.updateToggleTodo.bind(this, id)} style={taskStyle}>{task}</td>
 		);
 	}
 
@@ -113,8 +113,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		addTodo: task => dispatch(addTodo(task)),
-		toggleTodo: id => dispatch(toggleTodo(id)),
-		editTodo: (id, newTask) => dispatch(editTodo(id, newTask)),
+		updateToggleTodo: id => dispatch(updateToggleTodo(id)),
+		updateTodo: (id, newTask) => dispatch(updateTodo(id, newTask)),
 		deleteTodo: id => dispatch(deleteTodo(id))
 	};
 };

@@ -24,7 +24,9 @@ export default function(todos=init, action) {
 					todo.task = action.payload.newTask;
 				}
 				return todo;
-			})
+			});
+		case 'FETCH_TODOS_SUCCESS':
+			return action.payload;
 		default:
 			return todos;
 	}
